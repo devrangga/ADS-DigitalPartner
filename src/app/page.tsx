@@ -1,113 +1,302 @@
+"use client";
+import { useState } from "react";
+import MaxDiv from "@/components/MaxDiv";
 import Image from "next/image";
+import Logo from "../../public/svg/Logo";
+import { imgOne } from "../../public/img";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { phoneNumbers } from "@/constant";
+import { useToast } from "@/components/ui/use-toast";
+import check from "../../public/svg/check.svg";
 
-export default function Home() {
+const formSchema = z.object({
+  email: z.string(),
+  username: z.string(),
+  numberType: z.string(),
+  phone: z.number(),
+  password: z.string(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+export default function Page() {
+  const [loginRegister, setLoginRegister] = useState<"Login" | "Register">(
+    "Login"
+  );
+
+  const { toast } = useToast();
+
+  const { register, handleSubmit, setValue, reset, watch } =
+    useForm<FormValues>();
+
+  const [validations, setValidations] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    specialChar: false,
+  });
+
+  const validatePassword = (password: string) => {
+    setValidations({
+      length: password.length >= 8,
+      lowercase: /[a-z]/.test(password),
+      uppercase: /[A-Z]/.test(password),
+      number: /\d/.test(password),
+      specialChar: /[!@#$%^&*]/.test(password),
+    });
+  };
+
+  const submit = async (data: FormValues) => {
+    try {
+      if (
+        !data.email ||
+        !data.numberType ||
+        !data.password ||
+        !data.phone ||
+        !data.username
+      ) {
+        toast({
+          description: "Please Fill All The Inputs!",
+          style: {
+            borderRadius: "16px",
+            backgroundColor: "#FF4D4D",
+            color: "#ffffff",
+          },
+        });
+      }
+      const response = await fetch("/api/register", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        method: "POST",
+      });
+
+      if (response.ok) {
+        toast({
+          description: "Your Account Has Been Created Successfully!",
+          style: {
+            borderRadius: "16px",
+            backgroundColor: "#3366FF",
+            color: "#ffffff",
+          },
+        });
+        reset();
+
+        setLoginRegister("Login");
+      }
+    } catch (error) {
+      console.log("Error Message:", error as string);
+      toast({
+        description: "An error occurred. Please try again.",
+        style: {
+          borderRadius: "16px",
+          backgroundColor: "#FF4D4D",
+          color: "#ffffff",
+        },
+      });
+    }
+  };
+
+  const password = watch("password");
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <section className="bg-bg">
+      <MaxDiv className="relative h-screen">
+        <div className="flex flex-row justify-center xl:justify-start absolute top-0 right-0 left-0 py-12">
+          <div className="xl:scale-100 scale-75">
+            <Logo blackWhite="black" />
+          </div>
         </div>
-      </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <div className="flex xl:grid grid-cols-2 justify-center items-center h-full">
+          <div className="hidden xl:flex flex-col items-center">
+            <Image priority src={imgOne} alt="imgOne" />
+            <div className="flex flex-col gap-2 w-[465px]">
+              <h1 className="font-bold text-2xl">
+                Elevate Your Messaging Efficiency with Our Innovative Admin
+                Tools
+              </h1>
+              <h3 className="">
+                Selamat datang di Fowardin! Pengelolaan pesan Anda menjadi lebih
+                mudah dengan Admin Tools kami. Tingkatkan komunikasi Anda dan
+                pelanggan dengan fitur pesan otomatis. Menyimpan kontak menjadi
+                lebih praktis dengan fitur sinkronasi Google Concact. Dapatkan
+                kendali penuh pesan dengan manajemen konten yang praktis.
+              </h3>
+            </div>
+          </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <form
+            onSubmit={handleSubmit(submit)}
+            className="w-[328px] xl:w-[466px] h-fit px-8 py-12 flex flex-col items-center justify-center justify-self-end gap-2 xl:gap-4 xl:bg-white rounded-xl xl:shadow-xl"
+          >
+            <div className="flex flex-col gap-1 w-[264px] justify-center items-center mx-auto mb-4">
+              <h1 className="text-2xl font-bold">
+                {loginRegister === "Login"
+                  ? "Welcome Back"
+                  : "Welcome to Fowardin"}
+              </h1>
+              <h3 className="text-sm text-center">
+                {loginRegister === "Login"
+                  ? "We’re so excited to see you again!"
+                  : "Revolutionize your communication journey with Fowardin today"}
+              </h3>
+            </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+            <Input
+              {...register("email")}
+              className="w-full h-[48px]"
+              type={loginRegister === "Login" ? "text" : "email"}
+              placeholder={
+                loginRegister === "Login" ? "Username / Email" : "Email"
+              }
+            />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+            {loginRegister === "Register" && (
+              <div className="flex flex-col gap-4 w-full">
+                <Input
+                  {...register("username")}
+                  className="w-full h-[48px] hidden xl:block"
+                  type="text"
+                  placeholder="Username"
+                />
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+                <div className="flex flex-row gap-4 w-full ">
+                  <Select
+                    {...register("numberType")}
+                    onValueChange={(value) => setValue("numberType", value)}
+                  >
+                    <SelectTrigger className="xl:block hidden w-[124px] h-[48px]">
+                      <SelectValue
+                        defaultValue={"(ID) +62"}
+                        placeholder={"(ID) +62"}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {phoneNumbers.map((item, index) => (
+                          <SelectItem key={index} value={item}>
+                            {item}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    {...register("phone")}
+                    className="w-full h-[48px]"
+                    type="text"
+                    placeholder="Whatsapp Phone Number"
+                  />
+                </div>
+              </div>
+            )}
+
+            <Input
+              {...register("password")}
+              className="w-full h-[48px]"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => validatePassword(e.target.value)}
+            />
+
+            <p className="text-blue text-sm w-full">Lupa Password?</p>
+
+            <div
+              className={`${
+                loginRegister === "Login" ? "hidden" : "block"
+              } p-4 w-full text-sm bg-[#F3F5F8] rounded-lg lg:hidden`}
+            >
+              <h1 className="text-gray-500">Password harus mengandung:</h1>
+              <p
+                className={`${
+                  validations.length ? "text-green-500" : "text-gray-500"
+                }`}
+              >
+                {validations.length && <Image src={check} alt="check" />}
+                Paling tidak 8 karakter
+              </p>
+              <div className="text-gray-500">
+                Paling tidak 3 dari syarat berikut:
+              </div>
+              <p
+                className={`ml-4 flex gap-1 ${
+                  validations.lowercase ? "text-green-500" : "text-gray-500"
+                }`}
+              >
+                {validations.lowercase && <Image src={check} alt="check" />}
+                Huruf kecil (a-z)
+              </p>
+              <p
+                className={`ml-4 flex gap-1 ${
+                  validations.uppercase ? "text-green-500" : "text-gray-500"
+                }`}
+              >
+                {validations.uppercase && <Image src={check} alt="check" />}
+                Huruf besar (A-Z)
+              </p>
+              <p
+                className={`ml-4 flex gap-1 ${
+                  validations.number ? "text-green-500" : "text-gray-500"
+                }`}
+              >
+                {validations.number && <Image src={check} alt="check" />}
+                Angka
+              </p>
+              <p
+                className={`ml-4 flex gap-1 ${
+                  validations.specialChar ? "text-green-500" : "text-gray-500"
+                }`}
+              >
+                {validations.specialChar && <Image src={check} alt="check" />}
+                Karakter Spesial (!@#$%^&*)
+              </p>
+            </div>
+
+            <Button
+              type="submit"
+              className="bg-blue text-white w-full h-full py-4 mt-4"
+            >
+              {loginRegister === "Login" ? "Sign In" : "Sign Up"}
+            </Button>
+
+            {loginRegister === "Login" ? (
+              <h1 className="mt-4 text-sm">
+                Butuh buat akun?{" "}
+                <button
+                  onClick={() => setLoginRegister("Register")}
+                  className="text-blue inline-block"
+                >
+                  Daftar di sini
+                </button>
+              </h1>
+            ) : (
+              <h1 className="mt-4 text-sm">
+                Sudah punya akun?{" "}
+                <button
+                  onClick={() => setLoginRegister("Login")}
+                  className="text-blue inline-block"
+                >
+                  Login di sini
+                </button>
+              </h1>
+            )}
+          </form>
+        </div>
+      </MaxDiv>
+    </section>
   );
 }
