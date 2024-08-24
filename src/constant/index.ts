@@ -23,7 +23,7 @@ export const phoneNumbers: string[] = [
   "(GER) +49",
 ];
 
-type Section = {
+export type Section = {
   image: StaticImageData;
   title: string;
   desc: string;
@@ -95,8 +95,9 @@ export const subscriptionFeatures: SubscriptionFeatures[] = [
 type Subscription = {
   type: "Starter" | "Basic" | "Premium" | "Pro";
   desc: string;
-  mainPrice: string;
+  mainPrice?: string;
   additionalPrice?: string;
+  free?: boolean;
 };
 
 export const monthly: Subscription[] = [
@@ -105,23 +106,66 @@ export const monthly: Subscription[] = [
     desc: "Mulai perjalanan Anda dengan paket Starter selama 14 hari. Nikmati pesan otomatis, siaran pesan, dan  manajemen kontak yang efisien. Dapatkan integrasi yang membantu dan sinkronisasi kontak WhatsApp.",
     mainPrice: "Rp. 300.000 ",
     additionalPrice: "Rp. 3.600.000",
+    free: false,
   },
   {
     type: "Basic",
     desc: "Dapatkan akses selama 1 bulan dengan paket Basic. Manfaatkan fitur pesan otomatis, siaran pesan, dan manajemen kontak yang ditingkatkan. Rasakan kenyamanan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
     mainPrice: "Rp. 300.000 ",
     additionalPrice: "Rp. 3.600.000",
+    free: false,
   },
   {
     type: "Premium",
     desc: "Perpanjang pengalaman Anda dengan paket Premium selama 1 bulan. Nikmati manfaat pesan otomatis, siaran pesan, dan manajemen kontak tanpa batasan. Aktifkan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
     mainPrice: "Rp. 300.000 ",
     additionalPrice: "Rp. 3.600.000",
+    free: false,
   },
   {
     type: "Pro",
     desc: "Jelajahi seluruh fitur dengan paket Pro selama 1 bulan. Dapatkan keuntungan dari pesan otomatis, siaran pesan, serta manajemen kontak yang tidak terbatas. Aktifkan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
     mainPrice: "Rp. 300.000 ",
     additionalPrice: "Rp. 3.600.000",
+    free: false,
   },
+];
+
+export const yearly: Subscription[] = [
+  {
+    type: "Starter",
+    desc: "Mulai perjalanan Anda dengan paket Starter selama 14 hari. Nikmati pesan otomatis, siaran pesan, dan  manajemen kontak yang efisien. Dapatkan integrasi yang membantu dan sinkronisasi kontak WhatsApp.",
+    free: true,
+  },
+  {
+    type: "Basic",
+    desc: "Dapatkan akses selama 1 bulan dengan paket Basic. Manfaatkan fitur pesan otomatis, siaran pesan, dan manajemen kontak yang ditingkatkan. Rasakan kenyamanan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
+    mainPrice: "Rp. 65.000 ",
+    additionalPrice: "Rp. 650.000",
+    free: false,
+  },
+  {
+    type: "Premium",
+    desc: "Perpanjang pengalaman Anda dengan paket Premium selama 1 bulan. Nikmati manfaat pesan otomatis, siaran pesan, dan manajemen kontak tanpa batasan. Aktifkan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
+    mainPrice: "Rp. 76.000 ",
+    additionalPrice: "Rp. 800.000",
+    free: false,
+  },
+  {
+    type: "Pro",
+    desc: "Jelajahi seluruh fitur dengan paket Pro selama 1 bulan. Dapatkan keuntungan dari pesan otomatis, siaran pesan, serta manajemen kontak yang tidak terbatas. Aktifkan integrasi yang luas dengan sinkronisasi kontak Google dan WhatsApp.",
+    mainPrice: "Rp. 86.000 ",
+    additionalPrice: "Rp. 900.000",
+    free: false,
+  },
+];
+
+export const navigator: string[] = [
+  "Get Started",
+  "Broadcast",
+  "Campaign",
+  "Auto Reply",
+  "Opportunity",
+  "FAQ",
+  "Contact Us",
 ];

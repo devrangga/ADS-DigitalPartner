@@ -9,6 +9,7 @@ import sync from "./sync_saved_locally.svg";
 import time from "./time_auto.svg";
 import data from "./data_exploration.svg";
 import cast from "./cast.svg";
+import arrow from "./arrow.svg";
 
 export {
   units,
@@ -22,4 +23,5 @@ export {
   time,
   data,
   cast,
+  arrow,
 };
