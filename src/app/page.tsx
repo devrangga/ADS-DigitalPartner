@@ -19,6 +19,7 @@ import {
 import { phoneNumbers } from "@/constant";
 import { useToast } from "@/components/ui/use-toast";
 import check from "../../public/svg/check.svg";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   email: z.string(),
@@ -59,6 +60,20 @@ export default function Page() {
   };
 
   const submit = async (data: FormValues) => {
+    if (loginRegister === "Login") {
+      ("use server");
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/landing",
+      });
+      if (res?.error) {
+        console.log("Error:", res.error);
+      } else {
+        console.log("Successfully signed in", res);
+      }
+      return;
+    }
     try {
       if (
         !data.email ||
@@ -75,6 +90,7 @@ export default function Page() {
             color: "#ffffff",
           },
         });
+        return;
       }
       const response = await fetch("/api/register", {
         headers: {
@@ -179,7 +195,7 @@ export default function Page() {
                     {...register("numberType")}
                     onValueChange={(value) => setValue("numberType", value)}
                   >
-                    <SelectTrigger className="xl:block hidden w-[124px] h-[48px]">
+                    <SelectTrigger className="xl:flex hidden w-[124px] h-[48px]">
                       <SelectValue
                         defaultValue={"(ID) +62"}
                         placeholder={"(ID) +62"}

@@ -92,12 +92,13 @@ export const subscriptionFeatures: SubscriptionFeatures[] = [
   },
 ];
 
-type Subscription = {
+export type Subscription = {
   type: "Starter" | "Basic" | "Premium" | "Pro";
   desc: string;
   mainPrice?: string;
   additionalPrice?: string;
   free?: boolean;
+  index?: number;
 };
 
 export const monthly: Subscription[] = [
@@ -168,4 +169,24 @@ export const navigator: string[] = [
   "Opportunity",
   "FAQ",
   "Contact Us",
+];
+
+type Faq = {
+  title: string;
+  desc?: string;
+};
+
+export const faq: Faq[] = [
+  {
+    title: "Apa itu Forwardin?",
+    desc: "Forwardin adalah sebuah platform alat pengelolaan pesan WhatsApp yang dirancang untuk membantu Anda mengirim pesan ke banyak nomor dan grup WhatsApp secara bersamaan. Forwardin juga menyediakan berbagai fitur canggih seperti auto-reply, fitur broadcast, manajemen kampanye, serta sinkronisasi kontak WhatsApp dan kontak Google.",
+  },
+  {
+    title: "Apakah Forwardin cocok untuk saya?",
+    desc: "Forwardin adalah sebuah platform alat pengelolaan pesan WhatsApp yang dirancang untuk membantu Anda mengirim pesan ke banyak nomor dan grup WhatsApp secara bersamaan. Forwardin juga menyediakan berbagai fitur canggih seperti auto-reply, fitur broadcast, manajemen kampanye, serta sinkronisasi kontak WhatsApp dan kontak Google.",
+  },
+  {
+    title: "Apakah Forwardin perlu di-install ke komputer?",
+    desc: "Forwardin adalah sebuah platform alat pengelolaan pesan WhatsApp yang dirancang untuk membantu Anda mengirim pesan ke banyak nomor dan grup WhatsApp secara bersamaan. Forwardin juga menyediakan berbagai fitur canggih seperti auto-reply, fitur broadcast, manajemen kampanye, serta sinkronisasi kontak WhatsApp dan kontak Google.",
+  },
 ];

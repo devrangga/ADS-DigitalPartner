@@ -1,6 +1,6 @@
 import React from "react";
 type Props = {
-  whiteBlue: "white" | "#3366FF";
+  whiteBlue: "white" | "#3366FF" | "#000000";
 };
 
 const DropDown: React.FC<Props> = ({ whiteBlue }) => {
