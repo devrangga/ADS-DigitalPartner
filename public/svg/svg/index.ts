@@ -6,13 +6,19 @@ import contact from "./contacts.svg";
 import customerservice from "./customerservice.svg";
 import dashboard from "./dashboard.svg";
 import device from "./device.svg";
-import forwardinapi from "./forwardinapi.svg";
+import forwardinapi from "./forwadinapi.svg";
 import groups from "./groups.svg";
 import incomingchat from "./incomingchat.svg";
 import outgoingchat from "./outgoingchat.svg";
 import message from "./message.svg";
 import messenger from "./messenger.svg";
 import settings from "./settings.svg";
+import gear from "./gear.svg";
+import user from "./user.svg";
+import bell from "./bell.svg";
+import calendar from "./calendar.svg";
+import sideBlack from "./sideBlack.svg";
+import sideWhite from "./sideWhite.svg";
 
 export {
   analytics,
@@ -30,4 +36,10 @@ export {
   message,
   messenger,
   settings,
+  gear,
+  user,
+  bell,
+  calendar,
+  sideBlack,
+  sideWhite,
 };

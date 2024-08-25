@@ -19,10 +19,10 @@ const config = {
     },
     extend: {
       colors: {
-        sidebar: "rgba(var(--side-bar) / 1)",
-        content: "rgba(var(--content) / 1)",
-        contentCard: "rgba(var(--content-card) / 1)",
-        contentText: "rgba(var(--content-text) / 1)",
+        sidebar: "rgb(var(--side-bar) / 1)",
+        content: "rgb(var(--content) / 1)",
+        contentCard: "rgb(var(--content-card) / 1)",
+        contentText: "rgb(var(--content-text) / 1)",
         bg: "#ECF2FA",
         blue: "#3366FF",
         orange: "#FFB020",
