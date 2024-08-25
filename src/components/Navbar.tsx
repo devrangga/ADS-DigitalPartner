@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isNav, setIsNav] = useState<boolean>(false);
   return (
     <MaxDiv className="w-full lg:w-[700px] fixed left-0 right-0 top-0 lg:top-8 z-10 shadow-sm">
-      <nav className="flex justify-between p-6 lg:px-6 lg:py-3 bg-white lg:rounded-xl items-center text-sm">
+      <nav className="flex justify-between py-6 px-12 lg:px-6 lg:py-3 bg-white lg:rounded-xl items-center text-sm">
         <Logo blackWhite="black" />
 
         <div className="hidden lg:flex flex-row gap-4 items-center">
