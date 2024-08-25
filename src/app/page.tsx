@@ -65,7 +65,7 @@ export default function Page() {
       const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: "/landing",
+        callbackUrl: "/dashboard",
       });
       if (res?.error) {
         console.log("Error:", res.error);

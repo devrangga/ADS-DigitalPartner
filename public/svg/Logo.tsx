@@ -1,6 +1,6 @@
 import React from "react";
 type Props = {
-  blackWhite: "black" | "white";
+  blackWhite: "black" | "white" | "#3366FF";
 };
 const Logo: React.FC<Props> = ({ blackWhite }) => {
   return (

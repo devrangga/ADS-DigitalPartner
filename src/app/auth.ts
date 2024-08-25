@@ -16,6 +16,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: {
             email: credentials.email,
           },
+          select: {
+            email: true,
+            username: true,
+            phone: true,
+            password: true,
+          },
         });
 
         if (!user) {
@@ -37,4 +43,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      // If user is logged in, add user information to the token
+      if (user) {
+        token.username = user.username;
+        token.phone = user.phone;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Add username and phone to the session object
+      session.user.username = token.username;
+      session.user.phone = token.phone;
+      return session;
+    },
+  },
 });

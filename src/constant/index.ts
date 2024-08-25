@@ -10,6 +10,54 @@ import {
   units,
 } from "../../public/svg";
 
+import analytics from "../../public/svg/svg/analytics.svg";
+import autoreply from "../../public/svg/svg/autoreply.svg";
+import broadcast from "../../public/svg/svg/broadcast.svg";
+import campaign from "../../public/svg/svg/campaign.svg";
+import contact from "../../public/svg/svg/contacts.svg";
+import customerservice from "../../public/svg/svg/customerservice.svg";
+import dashboard from "../../public/svg/svg/dashboard.svg";
+import device from "../../public/svg/svg/device.svg";
+import forwardinapi from "../../public/svg/svg/forwadinapi.svg";
+import groups from "../../public/svg/svg/groups.svg";
+import incomingchat from "../../public/svg/svg/incomingchat.svg";
+import outgoingchat from "../../public/svg/svg/outgoingchat.svg";
+import message from "../../public/svg/svg/message.svg";
+import messenger from "../../public/svg/svg/messenger.svg";
+import settings from "../../public/svg/svg/settings.svg";
+
+type Sidebar = {
+  label: string;
+  icon: StaticImageData;
+  side: boolean;
+  hover: boolean;
+};
+
+export const sidebarItems: Sidebar[] = [
+  { label: "Dashboard", icon: dashboard, side: false, hover: false },
+  { label: "Device", icon: device, side: false, hover: false },
+  { label: "Contacts", icon: contact, side: true, hover: false },
+  { label: "Contacts", icon: contact, side: false, hover: true },
+  { label: "Groups", icon: groups, side: true, hover: false },
+  { label: "Message", icon: message, side: false, hover: true },
+  { label: "Messenger", icon: messenger, side: true, hover: false },
+  { label: "Incoming Chat", icon: incomingchat, side: true, hover: false },
+  { label: "Outgoing Chat", icon: outgoingchat, side: true, hover: false },
+  { label: "Broadcast", icon: broadcast, side: false, hover: false },
+  { label: "Campaign", icon: campaign, side: false, hover: false },
+  { label: "Auto Reply", icon: autoreply, side: false, hover: false },
+  {
+    label: "Customer Service",
+    icon: customerservice,
+    side: false,
+    hover: false,
+  },
+  { label: "Analytics", icon: analytics, side: false, hover: false },
+  { label: "Forwardin API", icon: forwardinapi, side: false, hover: false },
+
+  { label: "Settings", icon: settings, side: false, hover: false },
+];
+
 export const phoneNumbers: string[] = [
   "(ID) +62",
   "(US) +1",

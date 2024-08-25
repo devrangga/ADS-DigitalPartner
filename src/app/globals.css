@@ -67,3 +67,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.light {
+  --side-bar : 255,255,255:
+  --content : 243,245,248:
+  --content-card : 243,245,248:
+  --content-text : 0,0,0:
+}
+
+.dark {
+  --side-bar : 18,18,18:
+  --content : 31,31,33:
+  --content-card : 0,0,0:
+  --content-text : 255,255,255:
+}

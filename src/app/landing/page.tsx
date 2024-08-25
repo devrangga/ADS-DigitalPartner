@@ -21,7 +21,6 @@ const Page = () => {
   const toggleFaq = (index: number) => {
     setActiveFaqIndex(activeFaqIndex === index ? null : index);
   };
-
   const session = useSession();
   console.log(session.data?.user);
 
